@@ -3,7 +3,7 @@ import CSVTool from '../components/CSVTool';
 
 const MainApp = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="bg-gray-100 p-4">
       <CSVTool />
     </div>
   );
