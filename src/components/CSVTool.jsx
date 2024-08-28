@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Trash2, Plus, Download, Upload } from 'lucide-react';
+import { Trash2, Plus, Download, Upload, X } from 'lucide-react';
 
 const CSVTool = () => {
   const [data, setData] = useState([]);
@@ -38,6 +38,20 @@ const CSVTool = () => {
     setData(newData);
   };
 
+  const addColumn = () => {
+    const newHeader = `Column ${headers.length + 1}`;
+    setHeaders([...headers, newHeader]);
+    const newData = data.map(row => [...row, '']);
+    setData(newData);
+  };
+
+  const deleteColumn = (index) => {
+    const newHeaders = headers.filter((_, i) => i !== index);
+    const newData = data.map(row => row.filter((_, i) => i !== index));
+    setHeaders(newHeaders);
+    setData(newData);
+  };
+
   const downloadCSV = () => {
     const csvContent = [
       headers.join(','),
@@ -62,6 +76,7 @@ const CSVTool = () => {
       <div className="mb-4">
         <Input type="file" accept=".csv" onChange={handleFileUpload} className="mb-2" />
         <Button onClick={addRow} className="mr-2"><Plus className="mr-2 h-4 w-4" /> Add Row</Button>
+        <Button onClick={addColumn} className="mr-2"><Plus className="mr-2 h-4 w-4" /> Add Column</Button>
         <Button onClick={downloadCSV}><Download className="mr-2 h-4 w-4" /> Download CSV</Button>
       </div>
       {headers.length > 0 && (
@@ -69,7 +84,17 @@ const CSVTool = () => {
           <TableHeader>
             <TableRow>
               {headers.map((header, index) => (
-                <TableHead key={index}>{header}</TableHead>
+                <TableHead key={index} className="relative">
+                  {header}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="absolute top-0 right-0"
+                    onClick={() => deleteColumn(index)}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </TableHead>
               ))}
               <TableHead>Actions</TableHead>
             </TableRow>
