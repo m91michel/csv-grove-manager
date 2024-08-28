@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogOut } from 'lucide-react';
 import { navItems } from '../nav-items';
+import GoogleLogin from './GoogleLogin';
 
-const Navigation = () => {
+const Navigation = ({ user, onLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -30,6 +31,14 @@ const Navigation = () => {
                   <span className="ml-2">{item.title}</span>
                 </Link>
               ))}
+              {user ? (
+                <Button onClick={onLogout} className="flex items-center">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </Button>
+              ) : (
+                <GoogleLogin onLoginSuccess={() => {}} onLoginFailure={() => {}} />
+              )}
             </div>
           </div>
           <div className="md:hidden">
@@ -53,6 +62,14 @@ const Navigation = () => {
                 <span className="ml-2">{item.title}</span>
               </Link>
             ))}
+            {user ? (
+              <Button onClick={onLogout} className="w-full flex items-center justify-center">
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </Button>
+            ) : (
+              <GoogleLogin onLoginSuccess={() => {}} onLoginFailure={() => {}} />
+            )}
           </div>
         </div>
       )}

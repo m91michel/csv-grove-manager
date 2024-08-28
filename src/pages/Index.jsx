@@ -2,17 +2,24 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, Edit, Trash2, Download } from "lucide-react";
 import { Link } from 'react-router-dom';
+import GoogleLogin from '../components/GoogleLogin';
 
-const Index = () => {
+const Index = ({ user, onLoginSuccess }) => {
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto px-4 py-16">
         <header className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">CSV Grove Manager</h1>
           <p className="text-xl text-gray-600 mb-8">Effortlessly manage and edit your CSV files online</p>
-          <Link to="/app">
-            <Button size="lg">Get Started</Button>
-          </Link>
+          {user ? (
+            <Link to="/app">
+              <Button size="lg">Get Started</Button>
+            </Link>
+          ) : (
+            <div className="max-w-xs mx-auto">
+              <GoogleLogin onLoginSuccess={onLoginSuccess} onLoginFailure={() => {}} />
+            </div>
+          )}
         </header>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
@@ -38,9 +45,13 @@ const Index = () => {
 
         <div className="text-center">
           <h2 className="text-2xl font-semibold mb-4">Ready to manage your CSV files?</h2>
-          <Link to="/app">
-            <Button size="lg">Try CSV Grove Manager Now</Button>
-          </Link>
+          {user ? (
+            <Link to="/app">
+              <Button size="lg">Try CSV Grove Manager Now</Button>
+            </Link>
+          ) : (
+            <p className="text-lg text-gray-600">Sign in with Google to get started!</p>
+          )}
         </div>
       </div>
     </div>
