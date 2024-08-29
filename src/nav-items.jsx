@@ -1,6 +1,7 @@
-import { HomeIcon, FileSpreadsheetIcon } from "lucide-react";
+import { HomeIcon, FileSpreadsheetIcon, BookOpenIcon } from "lucide-react";
 import Index from "./pages/Index.jsx";
 import MainApp from "./pages/MainApp.jsx";
+import Blog from "./pages/Blog.jsx";
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
@@ -17,5 +18,11 @@ export const navItems = [
     to: "/app",
     icon: <FileSpreadsheetIcon className="h-4 w-4" />,
     page: <MainApp />,
+  },
+  {
+    title: "Blog",
+    to: "/blog",
+    icon: <BookOpenIcon className="h-4 w-4" />,
+    page: <Blog />,
   },
 ];
