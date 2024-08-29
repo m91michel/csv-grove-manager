@@ -1,10 +1,19 @@
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Upload, Edit, Trash2, Download } from "lucide-react";
 import { Link } from 'react-router-dom';
 import GoogleLogin from '../components/GoogleLogin';
+import FAQSection from '../components/FAQSection';
 
 const Index = ({ user, onLoginSuccess }) => {
+  const faqItems = [
+    { question: "What is CSV Grove Manager?", answer: "CSV Grove Manager is an online tool that allows you to easily manage and edit your CSV files." },
+    { question: "How do I get started?", answer: "Simply sign in with your Google account and start uploading your CSV files." },
+    { question: "Is my data secure?", answer: "Yes, we take data security seriously. Your files are encrypted and only accessible by you." },
+    { question: "Can I collaborate with others?", answer: "Currently, CSV Grove Manager is designed for individual use. We're working on collaboration features for the future." },
+  ];
+
   return (
     <div className="bg-gray-100">
       <div className="container mx-auto px-4 py-16">
@@ -43,7 +52,13 @@ const Index = ({ user, onLoginSuccess }) => {
           ))}
         </div>
 
-        <div className="text-center">
+        <FAQSection 
+          items={faqItems}
+          image="/placeholder.svg"
+          contactEmail="support@csvgrovemanager.com"
+        />
+
+        <div className="text-center mt-16">
           <h2 className="text-2xl font-semibold mb-4">Ready to manage your CSV files?</h2>
           {user ? (
             <Link to="/app">
