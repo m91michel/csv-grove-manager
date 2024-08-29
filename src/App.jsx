@@ -6,7 +6,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { navItems } from "./nav-items";
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 import MainApp from "./pages/MainApp";
+import { config } from "./config";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +26,33 @@ const App = () => {
     setUser(null);
   };
 
+  const footerColumns = [
+    {
+      title: "Product",
+      items: [
+        { title: "Features", url: "/features" },
+        { title: "Pricing", url: "/pricing" },
+        { title: "FAQ", url: "/faq" },
+      ],
+    },
+    {
+      title: "Company",
+      items: [
+        { title: "About", url: "/about" },
+        { title: "Blog", url: "/blog" },
+        { title: "Careers", url: "/careers" },
+      ],
+    },
+    {
+      title: "Resources",
+      items: [
+        { title: "Documentation", url: "/docs" },
+        { title: "Support", url: `/support?email=${config.supportEmail}` },
+        { title: "Terms of Service", url: "/terms" },
+      ],
+    },
+  ];
+
   return (
     <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
       <QueryClientProvider client={queryClient}>
@@ -40,6 +69,7 @@ const App = () => {
                   <Route path="/app" element={<MainApp user={user} />} />
                 </Routes>
               </main>
+              <Footer columns={footerColumns} logo="/logo.svg" />
             </div>
           </BrowserRouter>
         </TooltipProvider>
