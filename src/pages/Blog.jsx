@@ -2,17 +2,10 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import blogPostsData from '../data/blogPosts.json';
 
 const fetchBlogPosts = async () => {
-  const blogFiles = import.meta.glob('/src/blog/*.md');
-  const blogPosts = await Promise.all(
-    Object.entries(blogFiles).map(async ([path, loader]) => {
-      const { default: content, metadata } = await loader();
-      const slug = path.split('/').pop().replace('.md', '');
-      return { slug, content, ...metadata };
-    })
-  );
-  return blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return blogPostsData.sort((a, b) => new Date(b.date) - new Date(a.date));
 };
 
 const Blog = () => {
