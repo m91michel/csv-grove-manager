@@ -8,6 +8,7 @@ import { navItems } from "./nav-items";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import MainApp from "./pages/MainApp";
+import BlogPost from "./pages/BlogPost";
 import { config } from "./config";
 
 const queryClient = new QueryClient();
@@ -67,6 +68,7 @@ const App = () => {
                     <Route key={to} path={to} element={React.cloneElement(page, { user, onLoginSuccess: handleLoginSuccess })} />
                   ))}
                   <Route path="/app" element={<MainApp user={user} />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
                 </Routes>
               </main>
               <Footer columns={footerColumns} logo="/logo.svg" />
